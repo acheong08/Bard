@@ -11,7 +11,7 @@ Go to https://bard.google.com/
 
 - F12 for console
 - Copy the values
-  - Session: `cookieStore.get("_U").then(result => console.log(result.value))`
+  - Session: `cookieStore.get("__Secure-1PSID").then(result => console.log(result.value))`
   - At: `window.WIZ_global_data.SNlM0e`
 
 ## Usage
