@@ -115,7 +115,7 @@ class Chatbot:
             "conversation_id": json_chat_data[1][0],
             "response_id": json_chat_data[1][1],
             "factualityQueries": json_chat_data[3],
-            "textQuery": json_chat_data[2][0],
+            "textQuery": json_chat_data[2][0] if json_chat_data[2] is not None else "",
             "choices": [{"id": i[0], "content": i[1]} for i in json_chat_data[4]],
         }
         self.conversation_id = results["conversation_id"]
