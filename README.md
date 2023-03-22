@@ -20,3 +20,7 @@ options:
 ```
 
 [Developer Documentation](https://github.com/acheong08/Bard/blob/main/DOCUMENTATION.md)
+
+
+Credits:
+- [discordtehe](https://github.com/discordtehe) - Derivative of his original reverse engineering
