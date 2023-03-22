@@ -1,22 +1,21 @@
 """
 Reverse engineering of Google Bard
 """
+import argparse
 import json
 import random
-import string
-import requests
 import re
-import argparse
+import string
 
+import requests
 from prompt_toolkit import prompt
 from prompt_toolkit import PromptSession
 from prompt_toolkit.auto_suggest import AutoSuggestFromHistory
 from prompt_toolkit.completion import WordCompleter
 from prompt_toolkit.history import InMemoryHistory
 from prompt_toolkit.key_binding import KeyBindings
-
-from rich.markdown import Markdown
 from rich.console import Console
+from rich.markdown import Markdown
 
 
 def create_session() -> PromptSession:
@@ -133,14 +132,20 @@ if __name__ == "__main__":
         Repo: github.com/acheong08/Bard
 
         Enter `alt+enter` or `esc+enter` to send a message.
-        """
+        """,
     )
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--session", help="__Secure-1PSID cookie.", type=str, required=True
+        "--session",
+        help="__Secure-1PSID cookie.",
+        type=str,
+        required=True,
     )
     parser.add_argument(
-        "--at", help="window.WIZ_global_data.SNlM0e", type=str, required=True
+        "--at",
+        help="window.WIZ_global_data.SNlM0e",
+        type=str,
+        required=True,
     )
     args = parser.parse_args()
 

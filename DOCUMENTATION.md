@@ -43,4 +43,3 @@ Send a message to Google Bard and return the response.
 **Returns**:
 
 A dict containing the response from Google Bard.
-
