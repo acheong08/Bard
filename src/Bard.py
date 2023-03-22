@@ -146,7 +146,7 @@ if __name__ == "__main__":
 
     chatbot = Chatbot(args.session, args.at)
     prompt_session = create_session()
-    completions = create_completer(["!exit"])
+    completions = create_completer(["!exit", "!reset"])
     console = Console()
     try:
         while True:
@@ -155,6 +155,11 @@ if __name__ == "__main__":
             console.print()
             if user_prompt == "!exit":
                 break
+            elif user_prompt == "!reset":
+                chatbot.conversation_id = ""
+                chatbot.response_id = ""
+                chatbot.choice_id = ""
+                continue
             print("Google Bard:")
             response = chatbot.ask(user_prompt)
             console.print(Markdown(response["content"]))
