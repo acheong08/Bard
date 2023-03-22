@@ -1,6 +1,11 @@
 # Bard
 Reverse engineering of Google's Bard chatbot
 
+## Installation
+```bash
+ $ pip3 install --upgrade GoogleBard
+```
+
 ## Authentication
 Go to https://bard.google.com/
 
