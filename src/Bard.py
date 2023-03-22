@@ -150,3 +150,4 @@ if __name__ == "__main__":
         print("Google Bard:")
         response = chatbot.ask(user_prompt)
         console.print(Markdown(response["content"]))
+        print()
