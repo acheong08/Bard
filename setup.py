@@ -12,9 +12,7 @@ setup(
     package_dir={"": "src"},
     url="https://github.com/acheong08/Bard",
     project_urls={"Bug Report": "https://github.com/acheong08/Bard/issues/new"},
-    install_requires=[
-        "requests",
-    ],
+    install_requires=["requests", "prompt_toolkit", "rich"],
     long_description=open("README.md", encoding="utf-8").read(),
     long_description_content_type="text/markdown",
     py_modules=["Bard"],

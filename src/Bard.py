@@ -5,6 +5,45 @@ import json
 import random
 import string
 import requests
+import re
+
+from prompt_toolkit import prompt
+from prompt_toolkit import PromptSession
+from prompt_toolkit.auto_suggest import AutoSuggestFromHistory
+from prompt_toolkit.completion import WordCompleter
+from prompt_toolkit.history import InMemoryHistory
+from prompt_toolkit.key_binding import KeyBindings
+
+from rich.markdown import Markdown
+from rich.console import Console
+
+
+def create_session() -> PromptSession:
+    return PromptSession(history=InMemoryHistory())
+
+
+def create_completer(commands: list, pattern_str: str = "$") -> WordCompleter:
+    return WordCompleter(words=commands, pattern=re.compile(pattern_str))
+
+
+def get_input(
+    session: PromptSession = None,
+    completer: WordCompleter = None,
+    key_bindings: KeyBindings = None,
+) -> str:
+    """
+    Multiline input function.
+    """
+    return (
+        session.prompt(
+            completer=completer,
+            multiline=True,
+            auto_suggest=AutoSuggestFromHistory(),
+            key_bindings=key_bindings,
+        )
+        if session
+        else prompt(multiline=True)
+    )
 
 
 class Chatbot:
@@ -99,9 +138,15 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     chatbot = Chatbot(args.session, args.at)
+    prompt_session = create_session()
+    completer = create_completer(["!exit"])
+    console = Console()
     while True:
-        prompt = input("You: ")
-        if prompt == "!exit":
+        console.print("You:")
+        user_prompt = get_input(session=prompt_session, completer=completer)
+        console.print()
+        if user_prompt == "!exit":
             break
-        response = chatbot.ask(prompt)
-        print(f"Google Bard: {response['content']}")
+        print("Google Bard:")
+        response = chatbot.ask(user_prompt)
+        console.print(Markdown(response["content"]))
