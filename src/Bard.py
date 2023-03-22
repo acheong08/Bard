@@ -146,12 +146,12 @@ if __name__ == "__main__":
 
     chatbot = Chatbot(args.session, args.at)
     prompt_session = create_session()
-    completer = create_completer(["!exit"])
+    completions = create_completer(["!exit"])
     console = Console()
     try:
         while True:
             console.print("You:")
-            user_prompt = get_input(session=prompt_session, completer=completer)
+            user_prompt = get_input(session=prompt_session, completer=completions)
             console.print()
             if user_prompt == "!exit":
                 break
