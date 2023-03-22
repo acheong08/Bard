@@ -19,4 +19,4 @@ options:
   --at AT            window.WIZ_global_data.SNlM0e
 ```
 
-[Developer Documentation]
+[Developer Documentation](https://github.com/acheong08/Bard/blob/main/DOCUMENTATION.md)
