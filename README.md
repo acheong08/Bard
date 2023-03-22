@@ -9,6 +9,8 @@ Go to https://bard.google.com/
   - Session: `cookieStore.get("_U").then(result => console.log(result.value))` 
   - At: `window.WIZ_global_data.SNlM0e` 
 
+## Usage
+
 ```bash
 $ python3 -m Bard -h
 usage: Bard.py [-h] --session SESSION --at AT
@@ -19,7 +21,7 @@ options:
   --at AT            window.WIZ_global_data.SNlM0e
 ```
 
-[Developer Documentation](https://github.com/acheong08/Bard/blob/main/DOCUMENTATION.md)
+## [Developer Documentation](https://github.com/acheong08/Bard/blob/main/DOCUMENTATION.md)
 
 
 Credits:
