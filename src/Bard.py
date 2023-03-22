@@ -6,6 +6,7 @@ import random
 import string
 import requests
 import re
+import argparse
 
 from prompt_toolkit import prompt
 from prompt_toolkit import PromptSession
@@ -126,8 +127,14 @@ class Chatbot:
 
 
 if __name__ == "__main__":
-    import argparse
+    print(
+        """
+        ChatGPT - A command-line interface to Google's Bard (https://bard.google.com/)
+        Repo: github.com/acheong08/Bard
 
+        Enter `alt+enter` or `esc+enter` to send a message.
+        """
+    )
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--session", help="__Secure-1PSID cookie.", type=str, required=True
@@ -141,13 +148,16 @@ if __name__ == "__main__":
     prompt_session = create_session()
     completer = create_completer(["!exit"])
     console = Console()
-    while True:
-        console.print("You:")
-        user_prompt = get_input(session=prompt_session, completer=completer)
-        console.print()
-        if user_prompt == "!exit":
-            break
-        print("Google Bard:")
-        response = chatbot.ask(user_prompt)
-        console.print(Markdown(response["content"]))
-        print()
+    try:
+        while True:
+            console.print("You:")
+            user_prompt = get_input(session=prompt_session, completer=completer)
+            console.print()
+            if user_prompt == "!exit":
+                break
+            print("Google Bard:")
+            response = chatbot.ask(user_prompt)
+            console.print(Markdown(response["content"]))
+            print()
+    except KeyboardInterrupt:
+        print("Exiting...")
