@@ -4,6 +4,18 @@
 
 Reverse engineering of Google Bard
 
+<a id="Bard.get_input"></a>
+
+#### get\_input
+
+```python
+def get_input(session: PromptSession = None,
+              completer: WordCompleter = None,
+              key_bindings: KeyBindings = None) -> str
+```
+
+Multiline input function.
+
 <a id="Bard.Chatbot"></a>
 
 ## Chatbot Objects
