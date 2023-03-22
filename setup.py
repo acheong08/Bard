@@ -2,8 +2,8 @@ from setuptools import find_packages
 from setuptools import setup
 
 setup(
-    name="revBard",
-    version="0.0.3",
+    name="GoogleBard",
+    version="0.0.1",
     license="GNU General Public License v2.0",
     author="Antonio Cheong",
     author_email="acheong@student.dalat.org",
