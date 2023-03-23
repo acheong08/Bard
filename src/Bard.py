@@ -18,11 +18,11 @@ from rich.console import Console
 from rich.markdown import Markdown
 
 
-def create_session() -> PromptSession:
+def __create_session() -> PromptSession:
     return PromptSession(history=InMemoryHistory())
 
 
-def create_completer(commands: list, pattern_str: str = "$") -> WordCompleter:
+def __create_completer(commands: list, pattern_str: str = "$") -> WordCompleter:
     return WordCompleter(words=commands, pattern=re.compile(pattern_str))
 
 
@@ -54,27 +54,38 @@ class Chatbot:
     __slots__ = [
         "headers",
         "_reqid",
-        "at",
+        "SNlM0e",
         "conversation_id",
         "response_id",
         "choice_id",
+        "session",
     ]
 
-    def __init__(self, session_id, at):
-        self.headers = {
+    def __init__(self, session_id):
+        headers = {
             "Host": "bard.google.com",
             "X-Same-Domain": "1",
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36",
             "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
             "Origin": "https://bard.google.com",
             "Referer": "https://bard.google.com/",
-            "Cookie": "__Secure-1PSID=" + session_id + ";",
         }
         self._reqid = int("".join(random.choices(string.digits, k=4)))
-        self.at = at  # window.WIZ_global_data.SNlM0e
         self.conversation_id = ""
         self.response_id = ""
         self.choice_id = ""
+        self.session = requests.Session()
+        self.session.headers = headers
+        self.session.cookies.set("__Secure-1PSID", session_id)
+        self.SNlM0e = self.__get_snlm0e()
+
+    def __get_snlm0e(self):
+        resp = self.session.get(url="https://bard.google.com/", timeout=10)
+        # Find "SNlM0e":"<ID>"
+        if resp.status_code != 200:
+            raise Exception("Could not get Google Bard")
+        SNlM0e = re.search(r"SNlM0e\":\"(.*?)\"", resp.text).group(1)
+        return SNlM0e
 
     def ask(self, message: str) -> dict:
         """
@@ -95,12 +106,14 @@ class Chatbot:
             None,
             [self.conversation_id, self.response_id, self.choice_id],
         ]
-        data = {"f.req": json.dumps([None, json.dumps(message_struct)]), "at": self.at}
+        data = {
+            "f.req": json.dumps([None, json.dumps(message_struct)]),
+            "at": self.SNlM0e,
+        }
 
         # do the request!
-        resp = requests.post(
+        resp = self.session.post(
             "https://bard.google.com/_/BardChatUi/data/assistant.lamda.BardFrontendService/StreamGenerate",
-            headers=self.headers,
             params=params,
             data=data,
             timeout=120,
@@ -141,17 +154,11 @@ if __name__ == "__main__":
         type=str,
         required=True,
     )
-    parser.add_argument(
-        "--at",
-        help="window.WIZ_global_data.SNlM0e",
-        type=str,
-        required=True,
-    )
     args = parser.parse_args()
 
-    chatbot = Chatbot(args.session, args.at)
-    prompt_session = create_session()
-    completions = create_completer(["!exit", "!reset"])
+    chatbot = Chatbot(args.session)
+    prompt_session = __create_session()
+    completions = __create_completer(["!exit", "!reset"])
     console = Console()
     try:
         while True:

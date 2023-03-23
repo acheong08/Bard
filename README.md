@@ -12,18 +12,16 @@ Go to https://bard.google.com/
 - F12 for console
 - Copy the values
   - Session: Go to Application → Cookies → `__Secure-1PSID`. Copy the value of that cookie.
-  - At: `window.WIZ_global_data.SNlM0e` (Enter this in console and copy the output)
 
 ## Usage
 
 ```bash
 $ python3 -m Bard -h
-usage: Bard.py [-h] --session SESSION --at AT
+usage: Bard.py [-h] --session SESSION
 
 options:
   -h, --help         show this help message and exit
   --session SESSION  __Secure-1PSID cookie.
-  --at AT            window.WIZ_global_data.SNlM0e
 ```
 
 ## [Developer Documentation](https://github.com/acheong08/Bard/blob/main/DOCUMENTATION.md)
