@@ -26,7 +26,7 @@ def __create_completer(commands: list, pattern_str: str = "$") -> WordCompleter:
     return WordCompleter(words=commands, pattern=re.compile(pattern_str))
 
 
-def get_input(
+def __get_input(
     session: PromptSession = None,
     completer: WordCompleter = None,
     key_bindings: KeyBindings = None,
@@ -49,6 +49,9 @@ def get_input(
 class Chatbot:
     """
     A class to interact with Google Bard.
+    Parameters
+        session_id: str
+            The __Secure-1PSID cookie.
     """
 
     __slots__ = [
@@ -163,7 +166,7 @@ if __name__ == "__main__":
     try:
         while True:
             console.print("You:")
-            user_prompt = get_input(session=prompt_session, completer=completions)
+            user_prompt = __get_input(session=prompt_session, completer=completions)
             console.print()
             if user_prompt == "!exit":
                 break
