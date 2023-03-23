@@ -13,7 +13,9 @@ class Chatbot()
 ```
 
 A class to interact with Google Bard.
-Parameters
+
+Parameters:
+
     session_id: str
         The __Secure-1PSID cookie.
 
