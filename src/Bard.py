@@ -144,7 +144,7 @@ class Chatbot:
 if __name__ == "__main__":
     print(
         """
-        ChatGPT - A command-line interface to Google's Bard (https://bard.google.com/)
+        Bard - A command-line interface to Google's Bard (https://bard.google.com/)
         Repo: github.com/acheong08/Bard
 
         Enter `alt+enter` or `esc+enter` to send a message.
