@@ -98,7 +98,7 @@ class Chatbot:
         """
         # url params
         params = {
-            "bl": "boq_assistant-bard-web-server_20230315.04_p2",
+            "bl": "boq_assistant-bard-web-server_20230326.21_p0",
             "_reqid": str(self._reqid),
             "rt": "c",
         }
@@ -116,7 +116,7 @@ class Chatbot:
 
         # do the request!
         resp = self.session.post(
-            "https://bard.google.com/_/BardChatUi/data/assistant.lamda.BardFrontendService/StreamGenerate",
+            "https://bard.google.com/u/1/_/BardChatUi/data/assistant.lamda.BardFrontendService/StreamGenerate",
             params=params,
             data=data,
             timeout=120,
