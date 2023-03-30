@@ -116,7 +116,7 @@ class Chatbot:
 
         # do the request!
         resp = self.session.post(
-            "https://bard.google.com/u/1/_/BardChatUi/data/assistant.lamda.BardFrontendService/StreamGenerate",
+            "https://bard.google.com/_/BardChatUi/data/assistant.lamda.BardFrontendService/StreamGenerate",
             params=params,
             data=data,
             timeout=120,
