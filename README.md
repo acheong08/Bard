@@ -25,7 +25,16 @@ options:
 ```
 
 ## [Developer Documentation](https://github.com/acheong08/Bard/blob/main/DOCUMENTATION.md)
+```python
+from os import environ
+from Bard import Chatbot
 
+token = environ.get("BARD_TOKEN")
+
+chatbot = Chatbot(token)
+
+chatbot.ask("Hello, how are you?")
+```
 
 Credits:
 - [discordtehe](https://github.com/discordtehe) - Derivative of his original reverse engineering
