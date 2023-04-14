@@ -6,6 +6,8 @@ import json
 import random
 import re
 import string
+import os
+import sys
 
 import requests
 from prompt_toolkit import prompt
@@ -150,6 +152,17 @@ if __name__ == "__main__":
         Enter `alt+enter` or `esc+enter` to send a message.
         """,
     )
+    console = Console()
+    if os.getenv("BARD_QUICK"):
+        session = os.getenv("BARD_SESSION")
+        if not session:
+            print("BARD_SESSION environment variable not set.")
+            sys.exit(1)
+        chatbot = Chatbot(session)
+        # Join arguments into a single string
+        MESSAGE = " ".join(sys.argv[1:])
+        console.print(Markdown(chatbot.ask(MESSAGE)["content"]))
+        sys.exit(0)
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--session",
@@ -162,7 +175,7 @@ if __name__ == "__main__":
     chatbot = Chatbot(args.session)
     prompt_session = __create_session()
     completions = __create_completer(["!exit", "!reset"])
-    console = Console()
+
     try:
         while True:
             console.print("You:")
