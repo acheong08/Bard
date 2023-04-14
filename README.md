@@ -24,6 +24,14 @@ options:
   --session SESSION  __Secure-1PSID cookie.
 ```
 
+### Quick mode
+```
+$ export BARD_QUICK="true"
+$ export BARD_SESSION="<__Secure-1PSID>"
+$ python3 -m Bard
+```
+Environment variables can be placed in .zshrc.
+
 ## [Developer Documentation](https://github.com/acheong08/Bard/blob/main/DOCUMENTATION.md)
 ```python
 from os import environ
