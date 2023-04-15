@@ -32,6 +32,17 @@ $ python3 -m Bard
 ```
 Environment variables can be placed in .zshrc.
 
+Example bash shortcut:
+```bash
+# USAGE1: bard QUESTION
+# USAGE2: echo "QUESTION" | bard
+bard () {
+	export BARD_QUICK=true
+	export BARD_SESSION=<REDACTED>.
+	python3 -m Bard "${@:-$(</dev/stdin)}" | tail -n+7
+}
+```
+
 ## [Developer Documentation](https://github.com/acheong08/Bard/blob/main/DOCUMENTATION.md)
 ```python
 from os import environ
