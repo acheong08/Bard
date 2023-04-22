@@ -100,7 +100,7 @@ class Chatbot:
         """
         # url params
         params = {
-            "bl": "boq_assistant-bard-web-server_20230326.21_p0",
+            "bl": "boq_assistant-bard-web-server_20230419.00_p1",
             "_reqid": str(self._reqid),
             "rt": "c",
         }
