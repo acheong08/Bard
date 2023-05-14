@@ -66,7 +66,7 @@ class Chatbot:
         "session",
     ]
 
-    def __init__(self, session_id):
+    def __init__(self, session_id: str, proxy: str=None):
         headers = {
             "Host": "bard.google.com",
             "X-Same-Domain": "1",
@@ -80,6 +80,13 @@ class Chatbot:
         self.response_id = ""
         self.choice_id = ""
         self.session = requests.Session()
+        if proxy:
+            self.session.proxies.update(
+                {
+                    "http": proxy,
+                    "https": proxy
+                }
+            )
         self.session.headers = headers
         self.session.cookies.set("__Secure-1PSID", session_id)
         self.SNlM0e = self.__get_snlm0e()
