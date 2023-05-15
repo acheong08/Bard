@@ -13,11 +13,10 @@ class Chatbot()
 ```
 
 A class to interact with Google Bard.
-
-Parameters:
-
+Parameters
     session_id: str
         The __Secure-1PSID cookie.
+    proxy: str
 
 <a id="Bard.Chatbot.ask"></a>
 
@@ -36,3 +35,4 @@ Send a message to Google Bard and return the response.
 **Returns**:
 
 A dict containing the response from Google Bard.
+

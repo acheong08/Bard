@@ -1,4 +1,5 @@
 from os import environ
+
 from Bard import Chatbot
 
 token = environ.get("BARD_TOKEN")

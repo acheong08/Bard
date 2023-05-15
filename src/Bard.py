@@ -3,10 +3,10 @@ Reverse engineering of Google Bard
 """
 import argparse
 import json
+import os
 import random
 import re
 import string
-import os
 import sys
 
 import requests
@@ -54,6 +54,7 @@ class Chatbot:
     Parameters
         session_id: str
             The __Secure-1PSID cookie.
+        proxy: str
     """
 
     __slots__ = [
@@ -66,7 +67,7 @@ class Chatbot:
         "session",
     ]
 
-    def __init__(self, session_id: str, proxy: str=None):
+    def __init__(self, session_id: str, proxy: str = None):
         headers = {
             "Host": "bard.google.com",
             "X-Same-Domain": "1",
@@ -84,8 +85,8 @@ class Chatbot:
             self.session.proxies.update(
                 {
                     "http": proxy,
-                    "https": proxy
-                }
+                    "https": proxy,
+                },
             )
         self.session.headers = headers
         self.session.cookies.set("__Secure-1PSID", session_id)
