@@ -29,7 +29,7 @@ def __create_completer(commands: list, pattern_str: str = "$") -> WordCompleter:
 
 
 def __get_input(
-    session: PromptSession = None,
+    prompt_sess: PromptSession = None,
     completer: WordCompleter = None,
     key_bindings: KeyBindings = None,
 ) -> str:
@@ -37,13 +37,13 @@ def __get_input(
     Multiline input function.
     """
     return (
-        session.prompt(
+        prompt_sess.prompt(
             completer=completer,
             multiline=True,
             auto_suggest=AutoSuggestFromHistory(),
             key_bindings=key_bindings,
         )
-        if session
+        if prompt_sess
         else prompt(multiline=True)
     )
 
@@ -187,7 +187,7 @@ if __name__ == "__main__":
     try:
         while True:
             console.print("You:")
-            user_prompt = __get_input(session=prompt_session, completer=completions)
+            user_prompt = __get_input(prompt_sess=prompt_session, completer=completions)
             console.print()
             if user_prompt == "!exit":
                 break
