@@ -37,5 +37,3 @@ Send a message to Google Bard and return the response.
 A dict containing the response from Google Bard.
 
 
-
-
