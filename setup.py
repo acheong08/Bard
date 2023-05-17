@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name="GoogleBard",
-    version="1.0.2",
+    version="1.0.3",
     license="MIT License",
     author="Antonio Cheong",
     author_email="acheong@student.dalat.org",
