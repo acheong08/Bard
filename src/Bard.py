@@ -6,7 +6,8 @@ import re
 import sys
 import string
 import requests
-from prompt_toolkit import prompt, PromptSession, AutoSuggestFromHistory
+from prompt_toolkit import prompt, PromptSession
+from prompt_toolkit.auto_suggest import AutoSuggestFromHistory
 from prompt_toolkit.completion import WordCompleter
 from prompt_toolkit.history import InMemoryHistory
 from prompt_toolkit.key_binding import KeyBindings
