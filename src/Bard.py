@@ -1,18 +1,12 @@
-"""
-Reverse engineering of Google Bard
-"""
 import argparse
 import json
 import os
 import random
 import re
-import string
 import sys
-
+import string
 import requests
-from prompt_toolkit import prompt
-from prompt_toolkit import PromptSession
-from prompt_toolkit.auto_suggest import AutoSuggestFromHistory
+from prompt_toolkit import prompt, PromptSession, AutoSuggestFromHistory
 from prompt_toolkit.completion import WordCompleter
 from prompt_toolkit.history import InMemoryHistory
 from prompt_toolkit.key_binding import KeyBindings
@@ -55,6 +49,10 @@ class Chatbot:
         session_id: str
             The __Secure-1PSID cookie.
         proxy: str
+        timeout: int
+            Request timeout in seconds.
+        session: requests.Session
+            Requests session object.
     """
 
     __slots__ = [
@@ -67,7 +65,13 @@ class Chatbot:
         "session",
     ]
 
-    def __init__(self, session_id: str, proxy: str = None):
+    def __init__(
+        self,
+        session_id: str,
+        proxy: dict = None,
+        timeout: int = 20,
+        session: requests.Session = None,
+    ):
         headers = {
             "Host": "bard.google.com",
             "X-Same-Domain": "1",
@@ -77,32 +81,34 @@ class Chatbot:
             "Referer": "https://bard.google.com/",
         }
         self._reqid = int("".join(random.choices(string.digits, k=4)))
+        self.proxy = proxy
         self.conversation_id = ""
         self.response_id = ""
         self.choice_id = ""
-        self.session = requests.Session()
-        if proxy:
-            self.session.proxies.update(
-                {
-                    "http": proxy,
-                    "https": proxy,
-                },
-            )
+        self.session = session or requests.Session()
         self.session.headers = headers
         self.session.cookies.set("__Secure-1PSID", session_id)
         self.SNlM0e = self.__get_snlm0e()
+        self.timeout = timeout
 
     def __get_snlm0e(self):
-        resp = self.session.get(url="https://bard.google.com/", timeout=10)
         # Find "SNlM0e":"<ID>"
         if not self.session_id or self.session_id[-1] != ".":
-            raise Exception("__Secure-1PSID value must end with a single dot. Enter correct __Secure-1PSID value.")
-        resp = self.session.get("https://bard.google.com/", timeout=self.timeout, proxies=self.proxies)
+            raise Exception(
+                "__Secure-1PSID value must end with a single dot. Enter correct __Secure-1PSID value."
+            )
+        resp = self.session.get(
+            "https://bard.google.com/", timeout=10, proxies=self.proxy
+        )
         if resp.status_code != 200:
-            raise Exception(f"Response code not 200. Response Status is {resp.status_code}")
+            raise Exception(
+                f"Response code not 200. Response Status is {resp.status_code}"
+            )
         SNlM0e = re.search(r"SNlM0e\":\"(.*?)\"", resp.text)
         if not SNlM0e:
-            raise Exception("SNlM0e value not found in response. Check __Secure-1PSID value.")
+            raise Exception(
+                "SNlM0e value not found in response. Check __Secure-1PSID value."
+            )
         return SNlM0e.group(1)
 
     def ask(self, message: str) -> dict:
@@ -128,15 +134,13 @@ class Chatbot:
             "f.req": json.dumps([None, json.dumps(message_struct)]),
             "at": self.SNlM0e,
         }
-
-        # do the request!
         resp = self.session.post(
             "https://bard.google.com/_/BardChatUi/data/assistant.lamda.BardFrontendService/StreamGenerate",
             params=params,
             data=data,
-            timeout=120,
+            timeout=self.timeout,
+            proxies=self.proxy,
         )
-
         chat_data = json.loads(resp.content.splitlines()[3])[0][2]
         if not chat_data:
             return {"content": f"Google Bard encountered an error: {resp.content}."}
@@ -181,15 +185,12 @@ if __name__ == "__main__":
         # Join arguments into a single string
         MESSAGE = " ".join(sys.argv[1:])
         response = chatbot.ask(MESSAGE)
-        console.print(Markdown((response["content"])))
+        console.print(Markdown(response["content"]))
         console.print(response["images"] if response["images"] else "")
         sys.exit(0)
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--session",
-        help="__Secure-1PSID cookie.",
-        type=str,
-        required=True,
+        "--session", help="__Secure-1PSID cookie.", type=str, required=True,
     )
     args = parser.parse_args()
 
