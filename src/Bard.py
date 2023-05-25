@@ -95,10 +95,15 @@ class Chatbot:
     def __get_snlm0e(self):
         resp = self.session.get(url="https://bard.google.com/", timeout=10)
         # Find "SNlM0e":"<ID>"
+        if not self.session_id or self.session_id[-1] != ".":
+            raise Exception("__Secure-1PSID value must end with a single dot. Enter correct __Secure-1PSID value.")
+        resp = self.session.get("https://bard.google.com/", timeout=self.timeout, proxies=self.proxies)
         if resp.status_code != 200:
-            raise Exception("Could not get Google Bard")
-        SNlM0e = re.search(r"SNlM0e\":\"(.*?)\"", resp.text).group(1)
-        return SNlM0e
+            raise Exception(f"Response code not 200. Response Status is {resp.status_code}")
+        SNlM0e = re.search(r"SNlM0e\":\"(.*?)\"", resp.text)
+        if not SNlM0e:
+            raise Exception("SNlM0e value not found in response. Check __Secure-1PSID value.")
+        return SNlM0e.group(1)
 
     def ask(self, message: str) -> dict:
         """
