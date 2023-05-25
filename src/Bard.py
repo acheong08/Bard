@@ -92,6 +92,7 @@ class Chatbot:
         self.timeout = timeout
 
     def __get_snlm0e(self):
+        # Find "SNlM0e":"<ID>"
         if not self.session_id or self.session_id[-1] != ".":
             raise Exception(
                 "__Secure-1PSID value must end with a single dot. Enter correct __Secure-1PSID value."
@@ -112,10 +113,10 @@ class Chatbot:
 
     def ask(self, message: str) -> dict:
         """
-    Send a message to Google Bard and return the response.
-    :param message: The message to send to Google Bard.
-    :return: A dict containing the response from Google Bard.
-    """
+        Send a message to Google Bard and return the response.
+        :param message: The message to send to Google Bard.
+        :return: A dict containing the response from Google Bard.
+        """
         # url params
         params = {
             "bl": "boq_assistant-bard-web-server_20230523.13_p0",
