@@ -45,6 +45,7 @@ def __get_input(
 class Chatbot:
     """
     A class to interact with Google Bard.
+    
     Parameters
         session_id: str
             The __Secure-1PSID cookie.
@@ -69,7 +70,7 @@ class Chatbot:
         self,
         session_id: str,
         proxy: dict = None,
-        timeout: int = 20,
+        timeout: int = 120,
         session: requests.Session = None,
     ):
         headers = {
@@ -112,10 +113,11 @@ class Chatbot:
 
     def ask(self, message: str) -> dict:
         """
-    Send a message to Google Bard and return the response.
-    :param message: The message to send to Google Bard.
-    :return: A dict containing the response from Google Bard.
-    """
+        Send a message to Google Bard and return the response.
+
+        :param message: The message to send to Google Bard.
+        :return: A dict containing the response from Google Bard.
+        """
         # url params
         params = {
             "bl": "boq_assistant-bard-web-server_20230523.13_p0",
