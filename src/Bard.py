@@ -136,6 +136,10 @@ class Chatbot:
         if not chat_data:
             return {"content": f"Google Bard encountered an error: {resp.content}."}
         json_chat_data = json.loads(chat_data)
+        images = set()
+        if len(json_chat_data) >= 3:
+            for img in json_chat_data[4][0][4]:
+                images.add(img[0][0][0])
         results = {
             "content": json_chat_data[0][0],
             "conversation_id": json_chat_data[1][0],
@@ -143,6 +147,7 @@ class Chatbot:
             "factualityQueries": json_chat_data[3],
             "textQuery": json_chat_data[2][0] if json_chat_data[2] is not None else "",
             "choices": [{"id": i[0], "content": i[1]} for i in json_chat_data[4]],
+            "images": images,
         }
         self.conversation_id = results["conversation_id"]
         self.response_id = results["response_id"]
@@ -169,7 +174,9 @@ if __name__ == "__main__":
         chatbot = Chatbot(session)
         # Join arguments into a single string
         MESSAGE = " ".join(sys.argv[1:])
-        console.print(Markdown(chatbot.ask(MESSAGE)["content"]))
+        response = chatbot.ask(MESSAGE)
+        console.print(Markdown((response["content"])))
+        console.print(response["images"] if response["images"] else "")
         sys.exit(0)
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -199,6 +206,7 @@ if __name__ == "__main__":
             print("Google Bard:")
             response = chatbot.ask(user_prompt)
             console.print(Markdown(response["content"]))
+            console.print(response["images"] if response["images"] else "")
             print()
     except KeyboardInterrupt:
         print("Exiting...")
