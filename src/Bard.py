@@ -63,7 +63,10 @@ class Chatbot:
         "conversation_id",
         "response_id",
         "choice_id",
+        "proxy",
+        "session_id",
         "session",
+        "timeout",
     ]
 
     def __init__(
@@ -86,6 +89,7 @@ class Chatbot:
         self.conversation_id = ""
         self.response_id = ""
         self.choice_id = ""
+        self.session_id = session_id
         self.session = session or requests.Session()
         self.session.headers = headers
         self.session.cookies.set("__Secure-1PSID", session_id)
@@ -191,7 +195,10 @@ if __name__ == "__main__":
         sys.exit(0)
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--session", help="__Secure-1PSID cookie.", type=str, required=True,
+        "--session",
+        help="__Secure-1PSID cookie.",
+        type=str,
+        required=True,
     )
     args = parser.parse_args()
 
