@@ -153,8 +153,9 @@ class Chatbot:
         images = set()
         if len(json_chat_data) >= 3:
             if len(json_chat_data[4][0]) >= 4:
-                for img in json_chat_data[4][0][4]:
-                    images.add(img[0][0][0])
+                if json_chat_data[4][0][4]:
+                    for img in json_chat_data[4][0][4]:
+                        images.add(img[0][0][0])
         results = {
             "content": json_chat_data[0][0],
             "conversation_id": json_chat_data[1][0],
