@@ -3,17 +3,19 @@ import json
 import os
 import random
 import re
-import sys
 import string
+import sys
+import time
+
 import requests
-from prompt_toolkit import prompt, PromptSession
+from prompt_toolkit import prompt
+from prompt_toolkit import PromptSession
 from prompt_toolkit.auto_suggest import AutoSuggestFromHistory
 from prompt_toolkit.completion import WordCompleter
 from prompt_toolkit.history import InMemoryHistory
 from prompt_toolkit.key_binding import KeyBindings
 from rich.console import Console
 from rich.markdown import Markdown
-import time
 
 
 def __create_session() -> PromptSession:
@@ -118,7 +120,7 @@ class Chatbot:
         # Check if file exists
         if not os.path.isfile(file_path):
             return []
-        with open(file_path, "r", encoding="utf-8") as f:
+        with open(file_path, encoding="utf-8") as f:
             return json.load(f)
 
     def load_conversation(self, file_path: str, conversation_name: str) -> bool:
@@ -140,19 +142,21 @@ class Chatbot:
         # Find "SNlM0e":"<ID>"
         if not self.session_id or self.session_id[-1] != ".":
             raise Exception(
-                "__Secure-1PSID value must end with a single dot. Enter correct __Secure-1PSID value."
+                "__Secure-1PSID value must end with a single dot. Enter correct __Secure-1PSID value.",
             )
         resp = self.session.get(
-            "https://bard.google.com/", timeout=10, proxies=self.proxy
+            "https://bard.google.com/",
+            timeout=10,
+            proxies=self.proxy,
         )
         if resp.status_code != 200:
             raise Exception(
-                f"Response code not 200. Response Status is {resp.status_code}"
+                f"Response code not 200. Response Status is {resp.status_code}",
             )
         SNlM0e = re.search(r"SNlM0e\":\"(.*?)\"", resp.text)
         if not SNlM0e:
             raise Exception(
-                "SNlM0e value not found in response. Check __Secure-1PSID value."
+                "SNlM0e value not found in response. Check __Secure-1PSID value.",
             )
         return SNlM0e.group(1)
 

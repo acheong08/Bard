@@ -2,8 +2,6 @@
 
 # Bard
 
-Reverse engineering of Google Bard
-
 <a id="Bard.Chatbot"></a>
 
 ## Chatbot Objects
@@ -17,6 +15,10 @@ Parameters
     session_id: str
         The __Secure-1PSID cookie.
     proxy: str
+    timeout: int
+        Request timeout in seconds.
+    session: requests.Session
+        Requests session object.
 
 <a id="Bard.Chatbot.ask"></a>
 
@@ -35,4 +37,3 @@ Send a message to Google Bard and return the response.
 **Returns**:
 
 A dict containing the response from Google Bard.
-
