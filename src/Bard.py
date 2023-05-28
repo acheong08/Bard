@@ -13,6 +13,7 @@ from prompt_toolkit.history import InMemoryHistory
 from prompt_toolkit.key_binding import KeyBindings
 from rich.console import Console
 from rich.markdown import Markdown
+import time
 
 
 def __create_session() -> PromptSession:
@@ -95,6 +96,45 @@ class Chatbot:
         self.session.cookies.set("__Secure-1PSID", session_id)
         self.SNlM0e = self.__get_snlm0e()
         self.timeout = timeout
+
+    def save_conversation(self, file_path: str, conversation_name: str):
+        conversations = self.load_conversations(file_path)
+        conversation_details = {
+            {
+                "conversation_name": conversation_name,
+                "_reqid": self._reqid,
+                "conversation_id": self.conversation_id,
+                "response_id": self.response_id,
+                "choice_id": self.choice_id,
+                "SNlM0e": self.SNlM0e,
+            },
+        }
+        conversations.append(conversation_details)
+
+        with open(file_path, "w", encoding="utf-8") as f:
+            json.dump(conversations, f, indent=4)
+
+    def load_conversations(self, file_path: str) -> list[dict]:
+        # Check if file exists
+        if not os.path.isfile(file_path):
+            return []
+        with open(file_path, "r", encoding="utf-8") as f:
+            return json.load(f)
+
+    def load_conversation(self, file_path: str, conversation_name: str) -> bool:
+        """
+        Loads a conversation from history file. Returns whether the conversation was found.
+        """
+        conversations = self.load_conversations(file_path)
+        for conversation in conversations:
+            if conversation["conversation_name"] == conversation_name:
+                self._reqid = conversation["_reqid"]
+                self.conversation_id = conversation["conversation_id"]
+                self.response_id = conversation["response_id"]
+                self.choice_id = conversation["choice_id"]
+                self.SNlM0e = conversation["SNlM0e"]
+                return True
+        return False
 
     def __get_snlm0e(self):
         # Find "SNlM0e":"<ID>"
