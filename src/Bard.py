@@ -17,6 +17,8 @@ from prompt_toolkit.key_binding import KeyBindings
 from rich.console import Console
 from rich.markdown import Markdown
 
+from typing import List, Dict
+
 
 def __create_session() -> PromptSession:
     return PromptSession(history=InMemoryHistory())
@@ -116,7 +118,7 @@ class Chatbot:
         with open(file_path, "w", encoding="utf-8") as f:
             json.dump(conversations, f, indent=4)
 
-    def load_conversations(self, file_path: str) -> list[dict]:
+    def load_conversations(self, file_path: str) -> List[Dict]:
         # Check if file exists
         if not os.path.isfile(file_path):
             return []
