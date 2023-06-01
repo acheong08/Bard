@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name="GoogleBard",
-    version="1.2.2",
+    version="1.3.0",
     license="MIT License",
     author="Antonio Cheong",
     author_email="acheong@student.dalat.org",
@@ -12,7 +12,7 @@ setup(
     package_dir={"": "src"},
     url="https://github.com/acheong08/Bard",
     project_urls={"Bug Report": "https://github.com/acheong08/Bard/issues/new"},
-    install_requires=["requests", "prompt_toolkit", "rich"],
+    install_requires=["prompt_toolkit", "rich", "httpx[socks]"],
     long_description=open("README.md", encoding="utf-8").read(),
     long_description_content_type="text/markdown",
     py_modules=["Bard"],
