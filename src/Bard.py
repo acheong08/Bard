@@ -1,13 +1,15 @@
 import argparse
+import asyncio
 import json
 import os
 import random
 import re
 import string
 import sys
+from typing import Dict
+from typing import List
 
 import httpx
-import asyncio
 from prompt_toolkit import prompt
 from prompt_toolkit import PromptSession
 from prompt_toolkit.auto_suggest import AutoSuggestFromHistory
@@ -16,8 +18,6 @@ from prompt_toolkit.history import InMemoryHistory
 from prompt_toolkit.key_binding import KeyBindings
 from rich.console import Console
 from rich.markdown import Markdown
-
-from typing import List, Dict
 
 
 def __create_session() -> PromptSession:
@@ -61,22 +61,22 @@ class Chatbot:
     ):
         self.loop = asyncio.get_event_loop()
         self.async_chatbot = self.loop.run_until_complete(
-            AsyncChatbot.create(session_id, proxy, timeout)
+            AsyncChatbot.create(session_id, proxy, timeout),
         )
 
     def save_conversation(self, file_path: str, conversation_name: str):
         return self.loop.run_until_complete(
-            self.async_chatbot.save_conversation(file_path, conversation_name)
+            self.async_chatbot.save_conversation(file_path, conversation_name),
         )
 
     def load_conversations(self, file_path: str) -> List[Dict]:
         return self.loop.run_until_complete(
-            self.async_chatbot.load_conversations(file_path)
+            self.async_chatbot.load_conversations(file_path),
         )
 
     def load_conversation(self, file_path: str, conversation_name: str) -> bool:
         return self.loop.run_until_complete(
-            self.async_chatbot.load_conversation(file_path, conversation_name)
+            self.async_chatbot.load_conversation(file_path, conversation_name),
         )
 
     def ask(self, message: str) -> dict:

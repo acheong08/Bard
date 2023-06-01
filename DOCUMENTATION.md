@@ -10,6 +10,16 @@
 class Chatbot()
 ```
 
+Synchronous wrapper for the AsyncChatbot class.
+
+<a id="Bard.AsyncChatbot"></a>
+
+## AsyncChatbot Objects
+
+```python
+class AsyncChatbot()
+```
+
 A class to interact with Google Bard.
 Parameters
     session_id: str
@@ -17,15 +27,23 @@ Parameters
     proxy: str
     timeout: int
         Request timeout in seconds.
-    session: requests.Session
-        Requests session object.
 
-<a id="Bard.Chatbot.ask"></a>
+<a id="Bard.AsyncChatbot.load_conversation"></a>
+
+#### load\_conversation
+
+```python
+async def load_conversation(file_path: str, conversation_name: str) -> bool
+```
+
+Loads a conversation from history file. Returns whether the conversation was found.
+
+<a id="Bard.AsyncChatbot.ask"></a>
 
 #### ask
 
 ```python
-def ask(message: str) -> dict
+async def ask(message: str) -> dict
 ```
 
 Send a message to Google Bard and return the response.
