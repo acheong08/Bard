@@ -236,12 +236,12 @@ class AsyncChatbot:
         if not chat_data:
             return {"content": f"Google Bard encountered an error: {resp.content}."}
         json_chat_data = json.loads(chat_data)
-        images = set()
+        images = []
         if len(json_chat_data) >= 3:
             if len(json_chat_data[4][0]) >= 4:
                 if json_chat_data[4][0][4]:
                     for img in json_chat_data[4][0][4]:
-                        images.add(img[0][0][0])
+                        images.append(img[0][0][0])
         results = {
             "content": json_chat_data[0][0],
             "conversation_id": json_chat_data[1][0],
