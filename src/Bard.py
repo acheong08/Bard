@@ -191,6 +191,7 @@ class AsyncChatbot:
         resp = await self.session.get(
             "https://bard.google.com/",
             timeout=10,
+            follow_redirects=True,
         )
         if resp.status_code != 200:
             raise Exception(
