@@ -152,7 +152,7 @@ class AsyncChatbot:
         """
         # Load conversations from file
         conversations = await self.load_conversations(file_path)
-    
+
         # Update existing one
         conversation_exists = False
         for conversation in conversations:
@@ -164,7 +164,7 @@ class AsyncChatbot:
                 conversation["choice_id"] = self.choice_id
                 conversation["SNlM0e"] = self.SNlM0e
                 conversation_exists = True
-    
+
         # Create conversation object
         if not conversation_exists:
             conversation = {
@@ -176,7 +176,7 @@ class AsyncChatbot:
                 "SNlM0e": self.SNlM0e,
             }
             conversations.append(conversation)
-    
+
         # Save to the file
         with open(file_path, "w", encoding="utf-8") as f:
             json.dump(conversations, f, indent=4)
@@ -268,7 +268,7 @@ class AsyncChatbot:
                     for img in json_chat_data[4][0][4]:
                         images.append(img[0][0][0])
         results = {
-            "content": json_chat_data[0][0],
+            "content": json_chat_data[4][0][1][0],
             "conversation_id": json_chat_data[1][0],
             "response_id": json_chat_data[1][1],
             "factualityQueries": json_chat_data[3],
