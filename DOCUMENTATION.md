@@ -28,6 +28,25 @@ Parameters
     timeout: int
         Request timeout in seconds.
 
+<a id="Bard.AsyncChatbot.save_conversation"></a>
+
+#### save\_conversation
+
+```python
+async def save_conversation(file_path: str, conversation_name: str) -> None
+```
+
+Saves conversation to the file
+
+**Arguments**:
+
+- `file_path`: file to save (json)
+- `conversation_name`: any name of current conversation (unique one)
+
+**Returns**:
+
+None
+
 <a id="Bard.AsyncChatbot.load_conversation"></a>
 
 #### load\_conversation
@@ -36,7 +55,16 @@ Parameters
 async def load_conversation(file_path: str, conversation_name: str) -> bool
 ```
 
-Loads a conversation from history file. Returns whether the conversation was found.
+Loads a conversation from history file. Returns whether the conversation was found
+
+**Arguments**:
+
+- `file_path`: File with conversations (json)
+- `conversation_name`: unique conversation name
+
+**Returns**:
+
+True if the conversation was found
 
 <a id="Bard.AsyncChatbot.ask"></a>
 
