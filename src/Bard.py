@@ -139,6 +139,9 @@ class AsyncChatbot:
         proxy: dict = None,
         timeout: int = 20,
     ) -> "AsyncChatbot":
+        """
+        Async constructor.
+        """
         instance = cls(session_id, proxy, timeout)
         instance.SNlM0e = await instance.__get_snlm0e()
         return instance

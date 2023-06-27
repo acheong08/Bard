@@ -28,6 +28,20 @@ Parameters
     timeout: int
         Request timeout in seconds.
 
+<a id="Bard.AsyncChatbot.create"></a>
+
+#### create
+
+```python
+@classmethod
+async def create(cls,
+                 session_id: str,
+                 proxy: dict = None,
+                 timeout: int = 20) -> "AsyncChatbot"
+```
+
+Async constructor.
+
 <a id="Bard.AsyncChatbot.save_conversation"></a>
 
 #### save\_conversation
