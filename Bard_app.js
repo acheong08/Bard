@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         webView.setWebViewClient(new WebViewClient());
 
         // Load the URL in the WebView
-        webView.loadUrl("https://www.google.com");
+        webView.loadUrl("https://bard.google.com");
 
         // Set the WebView as the activity's content view
         setContentView(webView);
