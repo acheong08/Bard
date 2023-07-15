@@ -239,7 +239,7 @@ class AsyncChatbot:
         """
         # url params
         params = {
-            "bl": "boq_assistant-bard-web-server_20230620.14_p0",
+            "bl": "boq_assistant-bard-web-server_20230713.13_p0",
             "_reqid": str(self._reqid),
             "rt": "c",
         }
