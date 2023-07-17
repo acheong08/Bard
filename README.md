@@ -43,7 +43,7 @@ bard () {
 }
 ```
 
-## [Developer Documentation](https://github.com/acheong08/Bard/blob/main/DOCUMENTATION.md)
+### Implementation:
 ```python
 from os import environ
 from Bard import Chatbot
@@ -52,8 +52,28 @@ token = environ.get("BARD_TOKEN")
 
 chatbot = Chatbot(token)
 
-chatbot.ask("Hello, how are you?")
+answer = chatbot.ask("Hello, how are you?")
+
+print(answer['content']
 ```
+
+### Async Implementation:
+```python
+import asyncio
+from os import environ
+from Bard import AsyncChatbot
+
+token = environ.get("BARD_TOKEN")
+
+async def main():
+    chatbot = await AsyncChatbot.create(token)
+    response = await chatbot.ask("Hello, how are you?")
+    print(response['content'])
+
+asyncio.run(main())
+```
+
+## [Developer Documentation](https://github.com/acheong08/Bard/blob/main/DOCUMENTATION.md)
 
 Credits:
 - [discordtehe](https://github.com/discordtehe) - Derivative of his original reverse engineering
