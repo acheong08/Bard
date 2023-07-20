@@ -11,7 +11,7 @@ Go to https://bard.google.com/
 
 - F12 for console
 - Copy the values
-  - Session: Go to Application → Cookies → `__Secure_1PSID` and `__Secure_1PSIDTS`. Copy the value of those cookie.
+  - Session: Go to Application → Cookies → `__Secure-1PSID` and `__Secure-1PSIDTS`. Copy the value of those cookie.
 
 ## Usage
 
