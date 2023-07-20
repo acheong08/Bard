@@ -317,10 +317,16 @@ if __name__ == "__main__":
         sys.exit(0)
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--session --session_ts",
-        help="__Secure-1PSID cookie and __Secure_1PSIDTS cookie.",
+        "--session",
+        help="__Secure-1PSID cookie",
         type=str,
         required=True,
+    )
+    parser.add_argument(
+        "--session_ts",
+        help="__Secure_1PSIDTS cookie.",
+        type=str,
+        required=True
     )
     args = parser.parse_args()
 
