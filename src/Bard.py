@@ -56,7 +56,7 @@ class Chatbot:
     def __init__(
         self,
         secure_1psid: str,
-        secure_1psidts : str,
+        secure_1psidts: str = None,
         proxy: dict = None,
         timeout: int = 20,
     ):
@@ -112,7 +112,7 @@ class AsyncChatbot:
     def __init__(
         self,
         secure_1psid: str,
-        secure_1psidts : str,
+        secure_1psidts: str = None,
         proxy: dict = None,
         timeout: int = 20,
     ):
@@ -134,21 +134,22 @@ class AsyncChatbot:
         self.session = httpx.AsyncClient(proxies=self.proxy)
         self.session.headers = headers
         self.session.cookies.set("__Secure-1PSID", secure_1psid)
-        self.session.cookies.set("__Secure-1PSIDTS", secure_1psidts)
+        if secure_1psidts:
+            self.session.cookies.set("__Secure-1PSIDTS", secure_1psidts)
         self.timeout = timeout
 
     @classmethod
     async def create(
         cls,
         secure_1psid: str,
-        secure_1psidts:str,
+        secure_1psidts: str = None,
         proxy: dict = None,
         timeout: int = 20,
     ) -> "AsyncChatbot":
         """
         Async constructor.
         """
-        instance = cls(secure_1psid,secure_1psidts, proxy, timeout)
+        instance = cls(secure_1psid, secure_1psidts, proxy, timeout)
         instance.SNlM0e = await instance.__get_snlm0e()
         return instance
 
@@ -217,7 +218,10 @@ class AsyncChatbot:
 
     async def __get_snlm0e(self):
         # Find "SNlM0e":"<ID>"
-        if not (self.secure_1psid and self.secure_1psidts) or self.secure_1psid[-1] != ".":
+        if (
+            not (self.secure_1psid and self.secure_1psidts)
+            or self.secure_1psid[-1] != "."
+        ):
             raise Exception(
                 "Enter correct __Secure-1PSID and __Secure-1PSIDTS value. __Secure-1PSID value must end with a single dot. ",
             )
@@ -306,9 +310,11 @@ if __name__ == "__main__":
         Secure_1PSID = os.getenv("BARD___Secure-1PSID")
         Secure_1PSIDTS = os.getenv("BARD__Secure-1PSIDTS")
         if not (Secure_1PSID and Secure_1PSIDTS):
-            print("BARD___Secure-1PSID or BARD__Secure-1PSIDTS environment variable not set.")
+            print(
+                "BARD___Secure-1PSID or BARD__Secure-1PSIDTS environment variable not set."
+            )
             sys.exit(1)
-        chatbot = Chatbot(Secure_1PSID,Secure_1PSIDTS)
+        chatbot = Chatbot(Secure_1PSID, Secure_1PSIDTS)
         # Join arguments into a single string
         MESSAGE = " ".join(sys.argv[1:])
         response = chatbot.ask(MESSAGE)
@@ -317,10 +323,16 @@ if __name__ == "__main__":
         sys.exit(0)
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--session --session_ts",
-        help="__Secure-1PSID cookie and __Secure_1PSIDTS cookie.",
+        "--session",
+        help="__Secure-1PSID cookie",
         type=str,
         required=True,
+    )
+    parser.add_argument(
+        "--session_ts",
+        help="__Secure_1PSIDTS cookie.",
+        type=str,
+        required=False,
     )
     args = parser.parse_args()
 
