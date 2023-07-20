@@ -11,7 +11,7 @@ Go to https://bard.google.com/
 
 - F12 for console
 - Copy the values
-  - Session: Go to Application → Cookies → `__Secure-1PSID`. Copy the value of that cookie.
+  - Session: Go to Application → Cookies → `__Secure-1PSID` and `__Secure-1PSIDTS`. Copy the value of those cookie.
 
 ## Usage
 
@@ -21,13 +21,14 @@ usage: Bard.py [-h] --session SESSION
 
 options:
   -h, --help         show this help message and exit
-  --session SESSION  __Secure-1PSID cookie.
+  --__Secure_1PSID --__Secure_1PSIDTS       pass two cookies
 ```
 
 ### Quick mode
 ```
 $ export BARD_QUICK="true"
-$ export BARD_SESSION="<__Secure-1PSID>"
+$ export BARD___Secure-1PSID="<__Secure-1PSID>"
+$ export BARD___Secure-1PSIDTS="<__Secure-1PSIDTS>"
 $ python3 -m Bard
 ```
 Environment variables can be placed in .zshrc.
@@ -38,7 +39,8 @@ Example bash shortcut:
 # USAGE2: echo "QUESTION" | bard
 bard () {
 	export BARD_QUICK=true
-	export BARD_SESSION=<REDACTED>.
+	export BARD___Secure-1PSID==<REDACTED>.
+	export BARD___Secure-1PSIDTS==<REDACTED>.
 	python3 -m Bard "${@:-$(</dev/stdin)}" | tail -n+7
 }
 ```
@@ -48,11 +50,12 @@ bard () {
 from os import environ
 from Bard import Chatbot
 
-token = environ.get("BARD_TOKEN")
-
-chatbot = Chatbot(token)
+Secure_1PSID = environ.get("BARD__Secure-1PSID")
+Secure_1PSIDTS = environ.get("BARD__Secure-1PSIDTS")
+chatbot = Chatbot(Secure_1PSID, Secure_1PSIDTS)
 
 chatbot.ask("Hello, how are you?")
+
 ```
 
 Credits:
