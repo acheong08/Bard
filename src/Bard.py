@@ -317,14 +317,14 @@ if __name__ == "__main__":
         sys.exit(0)
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--__Secure_1PSID --__Secure_1PSIDTS",
+        "--session --session_ts",
         help="__Secure-1PSID cookie and __Secure_1PSIDTS cookie.",
         type=str,
         required=True,
     )
     args = parser.parse_args()
 
-    chatbot = Chatbot(args.__Secure_1PSID, args.__Secure_1PSIDTS)
+    chatbot = Chatbot(args.session, args.session_ts)
     prompt_session = __create_session()
     completions = __create_completer(["!exit", "!reset"])
 
