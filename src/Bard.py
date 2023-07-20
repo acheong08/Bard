@@ -311,7 +311,7 @@ if __name__ == "__main__":
         Secure_1PSIDTS = os.getenv("BARD__Secure-1PSIDTS")
         if not (Secure_1PSID and Secure_1PSIDTS):
             print(
-                "BARD___Secure-1PSID or BARD__Secure-1PSIDTS environment variable not set."
+                "BARD___Secure-1PSID or BARD__Secure-1PSIDTS environment variable not set.",
             )
             sys.exit(1)
         chatbot = Chatbot(Secure_1PSID, Secure_1PSIDTS)

@@ -35,7 +35,8 @@ Parameters
 ```python
 @classmethod
 async def create(cls,
-                 session_id: str,
+                 secure_1psid: str,
+                 secure_1psidts: str,
                  proxy: dict = None,
                  timeout: int = 20) -> "AsyncChatbot"
 ```

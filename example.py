@@ -1,4 +1,5 @@
 from os import environ
+
 from Bard import Chatbot
 
 Secure_1PSID = environ.get("BARD__Secure-1PSID")
