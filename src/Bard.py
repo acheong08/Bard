@@ -10,8 +10,8 @@ from typing import Dict
 from typing import List
 
 import httpx
-from prompt_toolkit import PromptSession
 from prompt_toolkit import prompt
+from prompt_toolkit import PromptSession
 from prompt_toolkit.auto_suggest import AutoSuggestFromHistory
 from prompt_toolkit.completion import WordCompleter
 from prompt_toolkit.history import InMemoryHistory
@@ -29,9 +29,9 @@ def __create_completer(commands: list, pattern_str: str = "$") -> WordCompleter:
 
 
 def __get_input(
-        prompt_sess: PromptSession = None,
-        completer: WordCompleter = None,
-        key_bindings: KeyBindings = None,
+    prompt_sess: PromptSession = None,
+    completer: WordCompleter = None,
+    key_bindings: KeyBindings = None,
 ) -> str:
     """
     Multiline input function.
@@ -54,11 +54,11 @@ class Chatbot:
     """
 
     def __init__(
-            self,
-            secure_1psid: str,
-            secure_1psidts: str,
-            proxy: dict = None,
-            timeout: int = 20,
+        self,
+        secure_1psid: str,
+        secure_1psidts : str,
+        proxy: dict = None,
+        timeout: int = 20,
     ):
         self.loop = asyncio.get_event_loop()
         self.async_chatbot = self.loop.run_until_complete(
@@ -110,11 +110,11 @@ class AsyncChatbot:
     ]
 
     def __init__(
-            self,
-            secure_1psid: str,
-            secure_1psidts: str,
-            proxy: dict = None,
-            timeout: int = 20,
+        self,
+        secure_1psid: str,
+        secure_1psidts : str,
+        proxy: dict = None,
+        timeout: int = 20,
     ):
         headers = {
             "Host": "bard.google.com",
@@ -139,16 +139,16 @@ class AsyncChatbot:
 
     @classmethod
     async def create(
-            cls,
-            secure_1psid: str,
-            secure_1psidts: str,
-            proxy: dict = None,
-            timeout: int = 20,
+        cls,
+        secure_1psid: str,
+        secure_1psidts:str,
+        proxy: dict = None,
+        timeout: int = 20,
     ) -> "AsyncChatbot":
         """
         Async constructor.
         """
-        instance = cls(secure_1psid, secure_1psidts, proxy, timeout)
+        instance = cls(secure_1psid,secure_1psidts, proxy, timeout)
         instance.SNlM0e = await instance.__get_snlm0e()
         return instance
 
@@ -308,7 +308,7 @@ if __name__ == "__main__":
         if not (Secure_1PSID and Secure_1PSIDTS):
             print("BARD___Secure-1PSID or BARD__Secure-1PSIDTS environment variable not set.")
             sys.exit(1)
-        chatbot = Chatbot(Secure_1PSID, Secure_1PSIDTS)
+        chatbot = Chatbot(Secure_1PSID,Secure_1PSIDTS)
         # Join arguments into a single string
         MESSAGE = " ".join(sys.argv[1:])
         response = chatbot.ask(MESSAGE)
@@ -317,16 +317,10 @@ if __name__ == "__main__":
         sys.exit(0)
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--session",
-        help="__Secure-1PSID cookie",
+        "--session --session_ts",
+        help="__Secure-1PSID cookie and __Secure_1PSIDTS cookie.",
         type=str,
         required=True,
-    )
-    parser.add_argument(
-        "--session_ts",
-        help="__Secure_1PSIDTS cookie.",
-        type=str,
-        required=True
     )
     args = parser.parse_args()
 
