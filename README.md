@@ -17,7 +17,7 @@ Go to https://bard.google.com/
 
 ```bash
 $ python3 -m Bard -h
-usage: Bard.py [-h] --session $BARD__Secure_1PSID --session_ts $BARD__Secure_1PSIDTS
+usage: Bard.py [-h] --session <__Secure-1PSID> --session_ts <__Secure-1PSIDTS>
 
 options:
   -h, --help         show this help message and exit
@@ -27,8 +27,8 @@ options:
 ### Quick mode
 ```
 $ export BARD_QUICK="true"
-$ export BARD__Secure_1PSID="<__Secure_1PSID>"
-$ export BARD__Secure_1PSIDTS="<__Secure_1PSIDTS>"
+$ export BARD__Secure_1PSID="<__Secure-1PSID>"
+$ export BARD__Secure_1PSIDTS="<__Secure-1PSIDTS>"
 $ python3 -m Bard
 ```
 Environment variables can be placed in .zshrc.
@@ -39,8 +39,8 @@ Example bash shortcut:
 # USAGE2: echo "QUESTION" | bard
 bard () {
 	export BARD_QUICK=true
-	export BARD__Secure_1PSID==<REDACTED>.
-	export BARD__Secure_1PSIDTS==<REDACTED>.
+	export BARD__Secure_1PSID=<__Secure-1PSID>
+	export BARD__Secure_1PSIDTS=<__Secure-1PSIDTS>
 	python3 -m Bard "${@:-$(</dev/stdin)}" | tail -n+7
 }
 ```
