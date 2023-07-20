@@ -17,18 +17,18 @@ Go to https://bard.google.com/
 
 ```bash
 $ python3 -m Bard -h
-usage: Bard.py [-h] --session SESSION
+usage: Bard.py [-h] --session <__Secure-1PSID> --session_ts <__Secure-1PSIDTS>
 
 options:
   -h, --help         show this help message and exit
-  --__Secure_1PSID --__Secure_1PSIDTS       pass two cookies
+  --session --session_ts       pass two cookies
 ```
 
 ### Quick mode
 ```
 $ export BARD_QUICK="true"
-$ export BARD___Secure-1PSID="<__Secure-1PSID>"
-$ export BARD___Secure-1PSIDTS="<__Secure-1PSIDTS>"
+$ export BARD__Secure_1PSID="<__Secure-1PSID>"
+$ export BARD__Secure_1PSIDTS="<__Secure-1PSIDTS>"
 $ python3 -m Bard
 ```
 Environment variables can be placed in .zshrc.
@@ -39,8 +39,8 @@ Example bash shortcut:
 # USAGE2: echo "QUESTION" | bard
 bard () {
 	export BARD_QUICK=true
-	export BARD___Secure-1PSID==<REDACTED>.
-	export BARD___Secure-1PSIDTS==<REDACTED>.
+	export BARD__Secure_1PSID=<__Secure-1PSID>
+	export BARD__Secure_1PSIDTS=<__Secure-1PSIDTS>
 	python3 -m Bard "${@:-$(</dev/stdin)}" | tail -n+7
 }
 ```
@@ -50,8 +50,8 @@ bard () {
 from os import environ
 from Bard import Chatbot
 
-Secure_1PSID = environ.get("BARD__Secure-1PSID")
-Secure_1PSIDTS = environ.get("BARD__Secure-1PSIDTS")
+Secure_1PSID = environ.get("BARD__Secure_1PSID")
+Secure_1PSIDTS = environ.get("BARD__Secure_1PSIDTS")
 chatbot = Chatbot(Secure_1PSID, Secure_1PSIDTS)
 
 chatbot.ask("Hello, how are you?")

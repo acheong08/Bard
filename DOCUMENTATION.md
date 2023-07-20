@@ -22,8 +22,10 @@ class AsyncChatbot()
 
 A class to interact with Google Bard.
 Parameters
-    session_id: str
-        The __Secure-1PSID cookie.
+    session: str
+        The __Secure_1PSID cookie.
+    session_ts: str
+        The __Secure_1PSIDTS cookie
     proxy: str
     timeout: int
         Request timeout in seconds.
