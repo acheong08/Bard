@@ -90,7 +90,7 @@ class AsyncChatbot:
     Parameters
         session: str
             The __Secure_1PSID cookie.
-        session-ts: str
+        session_ts: str
             The __Secure_1PSIDTS cookie.
         proxy: str
         timeout: int
