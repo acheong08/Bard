@@ -56,7 +56,7 @@ class Chatbot:
     def __init__(
         self,
         secure_1psid: str,
-        secure_1psidts: str = None,
+        secure_1psidts: str,
         proxy: dict = None,
         timeout: int = 20,
     ):
@@ -112,7 +112,7 @@ class AsyncChatbot:
     def __init__(
         self,
         secure_1psid: str,
-        secure_1psidts: str = None,
+        secure_1psidts: str,
         proxy: dict = None,
         timeout: int = 20,
     ):
@@ -142,7 +142,7 @@ class AsyncChatbot:
     async def create(
         cls,
         secure_1psid: str,
-        secure_1psidts: str = None,
+        secure_1psidts: str,
         proxy: dict = None,
         timeout: int = 20,
     ) -> "AsyncChatbot":
@@ -332,7 +332,7 @@ if __name__ == "__main__":
         "--session_ts",
         help="__Secure_1PSIDTS cookie.",
         type=str,
-        required=False,
+        required=True,
     )
     args = parser.parse_args()
 
