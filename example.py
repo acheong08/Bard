@@ -2,8 +2,9 @@ from os import environ
 
 from Bard import Chatbot
 
-token = environ.get("BARD_TOKEN")
+Secure_1PSID = environ.get("BARD__Secure-1PSID")
+Secure_1PSIDTS = environ.get("BARD__Secure-1PSIDTS")
 
-chatbot = Chatbot(token)
+chatbot = Chatbot(Secure_1PSID, Secure_1PSIDTS)
 
 chatbot.ask("Hello, how are you?")
