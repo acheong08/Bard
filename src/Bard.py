@@ -88,8 +88,10 @@ class AsyncChatbot:
     """
     A class to interact with Google Bard.
     Parameters
-        session_id: str
-            The __Secure-1PSID cookie.
+        session: str
+            The __Secure_1PSID cookie.
+        session_ts: str
+            The __Secure_1PSIDTS cookie.
         proxy: str
         timeout: int
             Request timeout in seconds.
@@ -223,7 +225,7 @@ class AsyncChatbot:
             or self.secure_1psid[-1] != "."
         ):
             raise Exception(
-                "Enter correct __Secure-1PSID and __Secure-1PSIDTS value. __Secure-1PSID value must end with a single dot. ",
+                "Enter correct __Secure_1PSID and __Secure_1PSIDTS value. __Secure_1PSID value must end with a single dot. ",
             )
         resp = await self.session.get(
             "https://bard.google.com/",
@@ -237,7 +239,7 @@ class AsyncChatbot:
         SNlM0e = re.search(r"SNlM0e\":\"(.*?)\"", resp.text)
         if not SNlM0e:
             raise Exception(
-                "SNlM0e value not found in response. Check __Secure-1PSID value.",
+                "SNlM0e value not found in response. Check __Secure_1PSID value.",
             )
         return SNlM0e.group(1)
 
@@ -307,11 +309,11 @@ if __name__ == "__main__":
     )
     console = Console()
     if os.getenv("BARD_QUICK"):
-        Secure_1PSID = os.getenv("BARD___Secure-1PSID")
-        Secure_1PSIDTS = os.getenv("BARD__Secure-1PSIDTS")
+        Secure_1PSID = os.getenv("BARD__Secure_1PSID")
+        Secure_1PSIDTS = os.getenv("BARD__Secure_1PSIDTS")
         if not (Secure_1PSID and Secure_1PSIDTS):
             print(
-                "BARD___Secure-1PSID or BARD__Secure-1PSIDTS environment variable not set.",
+                "BARD__Secure_1PSID or BARD__Secure_1PSIDTS environment variable not set.",
             )
             sys.exit(1)
         chatbot = Chatbot(Secure_1PSID, Secure_1PSIDTS)
