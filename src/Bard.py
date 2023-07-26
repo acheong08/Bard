@@ -319,7 +319,7 @@ if __name__ == "__main__":
         MESSAGE = " ".join(sys.argv[1:])
         response = chatbot.ask(MESSAGE)
         console.print(Markdown(response["content"]))
-        console.print(response["images"] if response["images"] else "")
+        console.print(response["images"] if response.get("images") else "")
         sys.exit(0)
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -355,7 +355,7 @@ if __name__ == "__main__":
             print("Google Bard:")
             response = chatbot.ask(user_prompt)
             console.print(Markdown(response["content"]))
-            console.print(response["images"] if response["images"] else "")
+            console.print(response["images"] if response.get("images") else "")
             print()
     except KeyboardInterrupt:
         print("Exiting...")
